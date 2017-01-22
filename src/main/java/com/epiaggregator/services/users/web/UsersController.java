@@ -27,4 +27,10 @@ public class UsersController {
         User user = userRepository.findByEmail(email);
         return new ResponseEntity<>(new GetUserResponse(user.getId(), user.getEmail(), user.getPassword()), HttpStatus.OK);
     }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/users/{id}")
+    public ResponseEntity<GetUserResponse> getUserById(@PathVariable(value = "id") String userId) {
+        User user = userRepository.findOne(userId);
+        return new ResponseEntity<>(new GetUserResponse(user.getId(), user.getEmail(), null), HttpStatus.OK);
+    }
 }
